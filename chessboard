@@ -1,0 +1,29 @@
+from PIL import Image, ImageDraw
+
+def draw_chessboard_grid(size, square_size, color1, color2, output_path):
+    # Create an image
+    image = Image.new("RGB", (size, size), color1)
+    draw = ImageDraw.Draw(image)
+
+    # Define colors for squares
+    colors = [color1, color2]
+
+    # Draw a chess grid
+    for i in range(0, size, square_size):
+        for j in range(0, size, square_size):
+            color_index = (i // square_size + j // square_size) % 2
+            square_color = colors[color_index]
+            draw.rectangle([i, j, i + square_size, j + square_size], fill=square_color)
+
+    # Save the image
+    image.save(output_path)
+
+# Set parameters
+grid_size = 400 # Image size
+square_size = 40 # Size of squares
+color1 = (255, 255, 255) # Color of the first square
+color2 = (0, 0, 0) # Color of the second square
+output_path = "chessboard_grid.png" # Path to save the image
+
+# Call a function to create and save an image
+draw_chessboard_grid(grid_size, square_size, color1, color2, output_path)
